@@ -91,4 +91,9 @@ class NumberToWordsSpec extends ObjectBehavior
         $this->parse(100001)->shouldReturn("njeqindmije e nje");
         $this->parse(100012)->shouldReturn("njeqindmije e dymbedhjete");
     }
+
+    function it_should_work_with_numbers_above_1_milion()
+    {
+        $this->parse(1013001)->shouldReturn("njemilion e trembedhjetemije e nje");
+    }
 }

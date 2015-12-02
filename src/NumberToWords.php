@@ -47,7 +47,10 @@ class NumberToWords {
             $sentence .= $this->create_100_base($base,$current);
 
             //handle all base 1000
-            $sentence .= $this->create_1000_base($base,$current);
+            $sentence .= $this->create_1000_base($base,$current,$number,$index);
+
+            //handle all 1 milion
+            $sentence .= $this->create_1000000_base($base,$current);
 
             //handle numbers from 11-19
             if($numberLength >= 2 && isset($number[$index+1]) && $current == 1){
@@ -58,7 +61,7 @@ class NumberToWords {
                         $sentence .= static::$baseNumbers[$number[$index+1]] . "mbe" . static::$baseNumbers[10];
                     }
                     $index++;
-                    $sentence .= $this->create_1000_base(pow(10, $numberLength - 1 - $index),"");
+                    $sentence .= $this->create_1000_base(pow(10, $numberLength - 1 - $index),"",$number, $index);
                     continue;
                 }
             }
@@ -89,10 +92,15 @@ class NumberToWords {
         }
     }
 
-    function create_1000_base($base, $current){
+    function create_1000_base($base, $current, $number, $index){
         if($base == 1000){
             if($current == 0){
-                return "mije";
+                for($i = $index; $i >= 0; $i--){
+                    if(intval($i) > 0){
+                        return "mije";
+                    }
+                }
+                return "";
             }
             return isset(static::$baseNumbers[$current]) ? static::$baseNumbers[$current]."mije" : "mije";
         }
@@ -104,6 +112,15 @@ class NumberToWords {
                 return "mije";
             }
             return isset(static::$baseNumbers[$current]) ? static::$baseNumbers[$current]."mije" : "mije";
+        }
+    }
+
+    function create_1000000_base($base, $current){
+        if($base == 1000000){
+            if($current == 0){
+                return "milion";
+            }
+            return isset(static::$baseNumbers[$current]) ? static::$baseNumbers[$current]."milion" : "milion";
         }
     }
 
