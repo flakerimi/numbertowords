@@ -4,16 +4,16 @@ class NumberToWords {
 
     public static $baseNumbers = [
         0 => "zero",
-        1 => "nje",
+        1 => "një",
         2 => "dy",
         3 => "tre",
-        4 => "kater",
-        5 => "pese",
-        6 => "gjashte",
-        7 => "shtate",
-        8 => "tete",
-        9 => "nente",
-        10 => "dhjete",
+        4 => "katër",
+        5 => "pesë",
+        6 => "gjashtë",
+        7 => "shtatë",
+        8 => "tetë",
+        9 => "nentë",
+        10 => "dhjetë",
     ];
 
     public function parse($number)
@@ -71,8 +71,13 @@ class NumberToWords {
                 $sentence .= static::$baseNumbers[1] . "zet";
             }
 
-            //handle numbers from 30-99
-            if(($base == 10 || $base == 10000) && $current > 2){
+            //handle numbers from 30-39
+            if(($base == 10 || $base == 10000) && $current == 3){
+                $sentence .=  "tri". static::$baseNumbers[10];
+            }
+
+            //handle numbers from 40-99
+            if(($base == 10 || $base == 10000) && $current > 3){
                 $sentence .= static::$baseNumbers[$current] . static::$baseNumbers[10];
                 continue;
             }
@@ -97,21 +102,21 @@ class NumberToWords {
             if($current == 0){
                 for($i = $index; $i >= 0; $i--){
                     if(intval($i) > 0){
-                        return "mije";
+                        return "mijë";
                     }
                 }
                 return "";
             }
-            return isset(static::$baseNumbers[$current]) ? static::$baseNumbers[$current]."mije" : "mije";
+            return isset(static::$baseNumbers[$current]) ? static::$baseNumbers[$current]."mijë" : "mijë";
         }
     }
 
     function create_10000_base($base, $current){
         if($base == 10000){
             if($current == 0){
-                return "mije";
+                return "mijë";
             }
-            return isset(static::$baseNumbers[$current]) ? static::$baseNumbers[$current]."mije" : "mije";
+            return isset(static::$baseNumbers[$current]) ? static::$baseNumbers[$current]."mijë" : "mijë";
         }
     }
 
